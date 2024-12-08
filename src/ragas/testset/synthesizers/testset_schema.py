@@ -142,6 +142,10 @@ class Testset(RagasDataset[TestsetSample]):
         response = requests.post(
             f"{base_url}/alignment/testset", json=packet.model_dump()
         )
+
+        if response is None:
+            raise Exception("Failed to upload results. No response received.")
+
         if response.status_code != 200:
             raise Exception(f"Failed to upload results: {response.text}")
 

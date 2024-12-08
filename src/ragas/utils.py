@@ -278,3 +278,5 @@ def upload_packet(path: str, data: str, base_url: str = RAGAS_API_URL):
         )
     elif response.status_code != 200:
         raise RagasAppUploadException(f"Failed to upload results: {response.text}")
+
+    return response

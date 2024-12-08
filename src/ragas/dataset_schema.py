@@ -515,13 +515,17 @@ class EvaluationResult:
         response = upload_packet(
             path="/alignment/evaluation",
             data=packet,
+            base_url=base_url
         )
+
+        if response is None:
+            raise Exception("Failed to upload results. No response received.")
 
         if response.status_code != 200:
             raise Exception(f"Failed to upload results: {response.text}")
 
         evaluation_endpoint = (
-            f"{RAGAS_APP_URL}/alignment/evaluation/{root_trace.run_id}"
+            f"{base_url}/alignment/evaluation/{root_trace.run_id}"
         )
         if verbose:
             print(f"Evaluation results uploaded! View at {evaluation_endpoint}")
